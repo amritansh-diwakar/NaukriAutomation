@@ -24,6 +24,7 @@ class UpdateResume(unittest.TestCase):
     def test_login(self):
         driver = self.driver
         driver.get(Variables.naukri_homepage_url)
+        WebDriverUtil.close_all_popup_windows(driver)
 
         login_page = LoginPage(driver)
         login_page.click_loginLayer_tab()
