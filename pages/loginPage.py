@@ -3,18 +3,18 @@ class LoginPage():
         self.driver = driver
 
         self.loginLayer_tab_id = "login_Layer"
-        self.emailId_textbox_css = "form[name=login-form] input[type=text]"
-        self.password_textbox_css = "form[name=login-form] input[type=password]"
-        self.login_button_css = "form[name=login-form] button[type=submit]"
+        self.username_textbox_id = "usernameField"
+        self.password_textbox_id = "passwordField"
+        self.login_button_xpath = "//button[@type='submit'][1]"
 
     def click_loginLayer_tab(self):
         self.driver.find_element_by_id(self.loginLayer_tab_id).click()
 
-    def enter_emailId(self, username):
-        self.driver.find_element_by_css_selector(self.emailId_textbox_css).send_keys(username)
+    def enter_username(self, username):
+        self.driver.find_element_by_id(self.username_textbox_id).send_keys(username)
 
     def enter_password(self, password):
-        self.driver.find_element_by_css_selector(self.password_textbox_css).send_keys(password)
+        self.driver.find_element_by_id(self.password_textbox_id).send_keys(password)
 
     def click_login_button(self):
-        self.driver.find_element_by_css_selector(self.login_button_css).click()
+        self.driver.find_element_by_xpath(self.login_button_xpath).click()

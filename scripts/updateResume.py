@@ -5,12 +5,14 @@ from selenium import webdriver
 import unittest
 import HtmlTestRunner
 from utilities import Variables, ResumeHandler, WebDriverUtil
-from pages.loginPage import LoginPage
+from pages.loginDrawer import LoginDrawer
 from pages.homePage import HomePage
 from pages.profilePage import ProfilePage
 
 
 class UpdateResume(unittest.TestCase):
+    driver = None
+
     @classmethod
     def setUpClass(cls):
         if Variables.browser == 'chrome':
@@ -26,11 +28,11 @@ class UpdateResume(unittest.TestCase):
         driver.get(Variables.naukri_homepage_url)
         WebDriverUtil.close_all_popup_windows(driver)
 
-        login_page = LoginPage(driver)
-        login_page.click_loginLayer_tab()
-        login_page.enter_emailId(Variables.naukri_email_id)
-        login_page.enter_password(Variables.naukri_password)
-        login_page.click_login_button()
+        login_drawer = LoginDrawer(driver)
+        login_drawer.click_loginLayer_tab()
+        login_drawer.enter_username(Variables.naukri_email_id)
+        login_drawer.enter_password(Variables.naukri_password)
+        login_drawer.click_login_button()
 
         home_page = HomePage(driver)
         home_page.check_profileSection_card()
@@ -40,8 +42,7 @@ class UpdateResume(unittest.TestCase):
         resources_resume_pdf_filepath = ResumeHandler.get_latest_resume()
         profile_page = ProfilePage(self.driver)
         profile_page.upload_resume(resources_resume_pdf_filepath)
-        message = profile_page.get_success_message()
-        self.assertEquals(message, 'Success')
+        self.assertEqual(profile_page.get_success_message(), 'Success')
 
     @classmethod
     def tearDownClass(cls):
